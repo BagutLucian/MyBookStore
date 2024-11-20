@@ -11,6 +11,6 @@ public class Launcher  extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ComponentFactory.getInstance(false,primaryStage);
+        ComponentFactory componentFactory = ComponentFactory.getInstance(false,primaryStage);
     }
 }

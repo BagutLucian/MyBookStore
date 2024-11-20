@@ -1,8 +1,8 @@
 package controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-//import launcher.EmployeeComponentFactory;
-//import launcher.LoginComponentFactory;
+import launcher.EmployeeComponentFactory;
+import launcher.LoginComponentFactory;
 import model.User;
 import model.validator.Notification;
 import model.validator.UserValidator;
@@ -39,12 +39,13 @@ public class LoginController {
                 loginView.setActionTargetText(loginNotification.getFormattedErrors());
             }else{
                 loginView.setActionTargetText("LogIn Successfull!");
-                //EmployeeComponentFactory.getInstance(LoginComponentFactory.getComponentsForTests(), LoginComponentFactory.getStage());
+                EmployeeComponentFactory.getInstance(LoginComponentFactory.getComponentsForTests(), LoginComponentFactory.getStage());
             }
         }
     }
 
     private class RegisterButtonListener implements EventHandler<ActionEvent> {
+
         @Override
         public void handle(ActionEvent event) {
             String username = loginView.getUsername();
