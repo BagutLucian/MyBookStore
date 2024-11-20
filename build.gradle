@@ -20,15 +20,15 @@ dependencies {
 
 apply plugin: "com.github.johnrengelman.shadow"
 
-javafx{
+javafx {
     version = '21.0.1'
-    modules = ['javafx.controls','javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
-mainClassName="launcher.Main"
+mainClassName='launcher.Main'
 
-jar{
-    manifest{
+jar {
+    manifest {
         attributes 'Main-Class': 'launcher.Main'
     }
 }
