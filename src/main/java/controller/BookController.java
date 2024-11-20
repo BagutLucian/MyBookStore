@@ -3,7 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import mapper.BookMapper;
-import service.BookService;
+import service.book.BookService;
 import view.BookView;
 import view.model.BookDTO;
 import view.model.builder.BookDTOBuilder;
@@ -50,16 +50,17 @@ public class BookController {
         public void handle(ActionEvent event)
         {
             BookDTO bookDTO = (BookDTO) bookView.getBookTableView().getSelectionModel().getSelectedItem();
-            if(bookDTO == null)
+            if(bookDTO != null)
             {
                 boolean deletionSuccessful = bookService.delete(BookMapper.convertBookDTOToBook(bookDTO));
                 if(deletionSuccessful)
                 {
                     bookView.addDisplayAlertMessage("Delete Successful","Book Deleted","Book was successfully deleted from the database.");
+                    bookView.removeBookFromObservableList(bookDTO);
                 } else
                 {
                     bookView.addDisplayAlertMessage("Delete Error","Problem at deleting the book","There was a problem with the database. Please try again.");
-                    bookView.removeBookFromObservableList(bookDTO);
+
 
                 }
             } else {
