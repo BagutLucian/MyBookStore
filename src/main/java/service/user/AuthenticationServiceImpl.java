@@ -5,8 +5,7 @@ import model.builder.UserBuilder;
 import model.validator.Notification;
 import model.validator.UserValidator;
 import repository.security.RightsRolesRepository;
-import repository.book.user.UserRepository;
-import service.book.user.AuthenticationService;
+import repository.user.UserRepository;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
