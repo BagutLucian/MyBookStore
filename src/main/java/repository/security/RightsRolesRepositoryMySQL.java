@@ -3,7 +3,6 @@ package repository.security;
 import model.Right;
 import model.Role;
 import model.User;
-import repository.security.RightsRolesRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

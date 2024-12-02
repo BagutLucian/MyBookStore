@@ -62,7 +62,22 @@ public class BookRepositoryMySQL implements BookRepository{
         String newSql = "INSERT INTO book VALUES(null, \'"
                 + book.getAuthor() +"\',\'"
                 + book.getTitle() + "\',\'"
-                + book.getPublishedDate() +"\' );";
+                + book.getPublishedDate() + "\',\'"
+                + book.getStock() + "\',\'"
+                + book.getPrice() +"\' );";
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(newSql);
+
+        } catch(SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    public boolean updateStock(Long bookId, int quantity) {
+        String newSql = "UPDATE book SET stock = stock - " + quantity + " WHERE id = " + bookId +  ";";
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(newSql);
@@ -80,6 +95,21 @@ public class BookRepositoryMySQL implements BookRepository{
                + book.getAuthor() +"\' AND title=\'"
                + book.getTitle() + "\';";
 
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(newSql);
+        } catch(SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public boolean deleteById(Long bookId)
+    {
+        String newSql ="DELETE FROM book WHERE id=\'"
+                + bookId + "\';";
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(newSql);
@@ -108,6 +138,8 @@ public class BookRepositoryMySQL implements BookRepository{
                 .setId(resultSet.getLong("id"))
                 .setTitle(resultSet.getString("title"))
                 .setAuthor(resultSet.getString("author"))
+                .setStock(resultSet.getInt("stock"))
+                .setPrice(resultSet.getInt("price"))
                 .setPublishedDate(new java.sql.Date(resultSet.getDate("publishedDate").getTime()).toLocalDate())
                 .build();
     }

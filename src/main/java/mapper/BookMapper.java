@@ -15,6 +15,9 @@ public class BookMapper {
         return new BookDTOBuilder()
                 .setTitle(book.getTitle())
                 .setAuthor(book.getAuthor())
+                .setStock(book.getStock())
+                .setPrice(book.getPrice())
+                .setId(book.getId())
                 .build();
     }
 
@@ -23,6 +26,8 @@ public class BookMapper {
         return new BookBuilder()
                 .setTitle(bookDTO.gettitle())
                 .setAuthor(bookDTO.getAuthor())
+                .setStock(bookDTO.getStock())
+                .setPrice(bookDTO.getPrice())
                 .setPublishedDate(LocalDate.of(2010,1,1))
                 .build();
     }

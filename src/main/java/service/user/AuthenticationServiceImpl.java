@@ -1,4 +1,4 @@
-package service.book.user;
+package service.user;
 import model.Role;
 import model.User;
 import model.builder.UserBuilder;
@@ -17,6 +17,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
+    public User authUser;
 
     public AuthenticationServiceImpl(UserRepository userRepository, RightsRolesRepository rightsRolesRepository) {
         this.userRepository = userRepository;
@@ -39,7 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         boolean userValid = userValidator.validate();
         Notification<Boolean> userRegisterNotification = new Notification<>();
 
-        if (userValid)
+        if (!userValid)
         {
             userValidator.getErrors().forEach(userRegisterNotification::addError);
             userRegisterNotification.setResult(Boolean.FALSE);
@@ -53,7 +54,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public Notification<User> login(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, hashPassword(password));
+       Notification<User> userLogged = userRepository.findByUsernameAndPassword(username, hashPassword(password));
+       if (!userLogged.hasErrors())
+       {
+           this.authUser=userLogged.getResult();
+       }
+        return userLogged;
     }
 
     @Override
@@ -80,5 +86,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+    public User getLoggedUser()
+    {
+        return this.authUser;
     }
 }

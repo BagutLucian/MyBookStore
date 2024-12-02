@@ -10,4 +10,6 @@ public interface BookRepository {
     boolean save(Book book);
     boolean delete(Book book);
     void removeAll();
+    boolean deleteById(Long bookId);
+    boolean updateStock(Long bookId, int quantity);
 }

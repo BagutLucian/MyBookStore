@@ -1,5 +1,6 @@
 package launcher;
 
+import com.mysql.cj.jdbc.jmx.LoadBalanceConnectionGroupManagerMBean;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,6 +12,6 @@ public class Launcher  extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ComponentFactory componentFactory = ComponentFactory.getInstance(false,primaryStage);
+        LoginComponentFactory loginComponentFactory = LoginComponentFactory.getInstance(false,primaryStage);
     }
 }

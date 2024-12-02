@@ -5,12 +5,8 @@ import launcher.EmployeeComponentFactory;
 import launcher.LoginComponentFactory;
 import model.User;
 import model.validator.Notification;
-import model.validator.UserValidator;
-import service.book.user.AuthenticationService;
+import service.user.AuthenticationService;
 import view.LoginView;
-
-import java.util.EventListener;
-import java.util.List;
 
 public class LoginController {
 
