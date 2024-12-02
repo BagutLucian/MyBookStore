@@ -1,4 +1,4 @@
-package repository.book.user;
+package repository.user;
 import model.User;
 import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
@@ -12,7 +12,6 @@ import java.util.List;
 import model.validator.*;
 
 import static database.Constants.Tables.USER;
-import static java.util.Collections.singletonList;
 
 public class UserRepositoryMySQL implements UserRepository {
 
@@ -51,6 +50,7 @@ public class UserRepositoryMySQL implements UserRepository {
                 User user = new UserBuilder()
                         .setUsername(userResultSet.getString("username"))
                         .setPassword(userResultSet.getString("password"))
+                        .setId(userResultSet.getLong("id"))
                         .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
                         .build();
                 findByUsernameAndPasswordNotification.setResult(user);

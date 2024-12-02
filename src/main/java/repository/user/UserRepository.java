@@ -1,4 +1,4 @@
-package repository.book.user;
+package repository.user;
 
 import model.User;
 import model.validator.Notification;

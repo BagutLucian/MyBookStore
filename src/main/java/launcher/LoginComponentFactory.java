@@ -2,14 +2,13 @@ package launcher;
 import controller.LoginController;
 import database.DatabaseConnectionFactory;
 import javafx.stage.Stage;
-import repository.book.BookRepository;
 import repository.book.BookRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
-import repository.book.user.UserRepository;
-import repository.book.user.UserRepositoryMySQL;
-import service.book.user.AuthenticationService;
-import service.book.user.AuthenticationServiceImpl;
+import repository.user.UserRepository;
+import repository.user.UserRepositoryMySQL;
+import service.user.AuthenticationService;
+import service.user.AuthenticationServiceImpl;
 import view.LoginView;
 
 import java.sql.Connection;

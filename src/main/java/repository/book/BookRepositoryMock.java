@@ -40,4 +40,14 @@ public class BookRepositoryMock implements BookRepository{
     public void removeAll() {
         books.clear();
     }
+
+    @Override
+    public boolean deleteById(Long bookId) {
+        return false;
+    }
+
+    @Override
+    public boolean updateStock(Long bookId, int quantity) {
+        return false;
+    }
 }
