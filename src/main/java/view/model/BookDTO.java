@@ -2,6 +2,24 @@ package view.model;
 import javafx.beans.property.*;
 
 public class BookDTO {
+
+    private LongProperty id;
+    public void setId(Long id)
+    {
+        idProperty().set(id);
+    }
+    public Long getId()
+    {
+        return idProperty().get();
+    }
+    public LongProperty idProperty()
+    {
+        if(id == null)
+            id = new SimpleLongProperty(this,"id");
+
+        return id;
+    }
+
     private StringProperty author;
 
     public void setAuthor(String author)
@@ -38,25 +56,6 @@ public class BookDTO {
             title = new SimpleStringProperty(this,"title");
 
         return title;
-    }
-
-    private LongProperty id;
-    public void setId(Long id)
-    {
-        idProperty().set(id);
-    }
-
-    public Long getId()
-    {
-        return idProperty().get();
-    }
-
-    public LongProperty idProperty()
-    {
-        if(id == null)
-            id = new SimpleLongProperty(this,"id");
-
-        return id;
     }
 
     private IntegerProperty stock;

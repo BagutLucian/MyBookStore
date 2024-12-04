@@ -76,12 +76,32 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
             ResultSet roleResultSet = statement.executeQuery(fetchRoleSql);
             roleResultSet.next();
             String roleTitle = roleResultSet.getString("role");
-            return new Role(roleId, roleTitle, null);
+            List<Right> rights = findRightsForRole(roleId);
+            return new Role(roleId, roleTitle,rights);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    private List<Right> findRightsForRole(Long roleId) {
+        List<Right> rights = new ArrayList<>();
+        try {
+            String sql = "SELECT r.id AS right_id, r.right AS right_name\n" +
+                    "FROM role_right rr\n" +
+                    "INNER JOIN `right` r ON rr.right_id = r.id " +
+                    "WHERE role_id = " + roleId +"\n";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                rights.add(new Right(resultSet.getLong("right_id"), resultSet.getString("right_name")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rights;
     }
 
     @Override

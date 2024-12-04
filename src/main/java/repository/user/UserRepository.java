@@ -1,5 +1,6 @@
 package repository.user;
 
+import model.Role;
 import model.User;
 import model.validator.Notification;
 
@@ -11,5 +12,8 @@ public interface UserRepository {
     boolean save(User user);
     void removeAll();
     boolean existsByUsername(String username);
+    public List<Role> findAllRoles();
+    public boolean deleteById(Long userId);
+    public boolean saveWithRoles(User user);
 
 }

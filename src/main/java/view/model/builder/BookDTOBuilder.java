@@ -37,7 +37,6 @@ public class BookDTOBuilder {
         return this;
     }
 
-
     public BookDTO build()
     {
         return bookDTO;

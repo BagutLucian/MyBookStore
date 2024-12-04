@@ -10,10 +10,16 @@ import repository.book.BookRepositoryMySQL;
 import repository.book.Cache;
 import repository.order.OrderRepository;
 import repository.order.OrderRepositoryMySQL;
+import repository.security.RightsRolesRepository;
+import repository.security.RightsRolesRepositoryMySQL;
+import repository.user.UserRepository;
+import repository.user.UserRepositoryMySQL;
 import service.book.BookService;
 import service.book.BookServiceImpl;
 import service.order.OrderService;
 import service.order.OrderServiceImpl;
+import service.user.UserService;
+import service.user.UserServiceImpl;
 import view.BookView;
 import view.model.BookDTO;
 import service.user.AuthenticationService;
@@ -40,18 +46,22 @@ public class EmployeeComponentFactory {
 
     public EmployeeComponentFactory(Boolean componentsForTest, Stage stage){
         Connection connection = DatabaseConnectionFactory.getConnectionWrapper(componentsForTest).getConnection();
+
+        // auth
+        AuthenticationService authService = LoginComponentFactory.getInstance(componentsForTest,stage).getAuthenticationService();
+
+        // book
         this.bookRepository = new BookRepositoryCacheDecorator(new BookRepositoryMySQL(connection), new Cache<>());
         this.bookService = new BookServiceImpl(bookRepository);
-        this.orderRepository = new OrderRepositoryMySQL(connection);
 
+        //order
+        this.orderRepository = new OrderRepositoryMySQL(connection);
         this.orderService = new OrderServiceImpl(orderRepository);
 
+        // view & controller
         List<BookDTO> bookDTOs = BookMapper.convertBookListToBookDTOList(this.bookService.findAll());
         this.bookView = new BookView(stage, bookDTOs);
-
-
-        AuthenticationService authserv=LoginComponentFactory.getInstance(componentsForTest,stage).getAuthenticationService();
-        this.bookController = new BookController(bookView, bookService, orderService,authserv);
+        this.bookController = new BookController(bookView,bookService,orderService,authService);
     }
 
     public BookView getBookView() {
